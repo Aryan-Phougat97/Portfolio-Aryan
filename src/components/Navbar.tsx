@@ -30,6 +30,16 @@ export const Navbar = () => {
     }
   };
 
+  const handleHomeClick = () => {
+    if (location.pathname !== "/") {
+      // Navigate to home page
+      navigate("/");
+    } else {
+      // Scroll to top if already on home page
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
       <div className="container mx-auto px-4 py-4">
@@ -47,7 +57,9 @@ export const Navbar = () => {
                 <button
                   key={item.path}
                   onClick={() => {
-                    if (item.path.includes("#")) {
+                    if (item.path === "/") {
+                      handleHomeClick();
+                    } else if (item.path.includes("#")) {
                       scrollToSection(item.path);
                     } else {
                       navigate(item.path);

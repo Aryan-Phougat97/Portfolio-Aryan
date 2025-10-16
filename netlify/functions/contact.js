@@ -29,7 +29,17 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Create Discord embed message
+    // Validate webhook URL format
+    if (!webhookUrl.startsWith('https://discord.com/api/webhooks/') &&
+        !webhookUrl.startsWith('https://discordapp.com/api/webhooks/')) {
+      console.error('Invalid Discord webhook URL format');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Server configuration error' }),
+      };
+    }
+
+    // Create Discord embed message with sanitized content
     const discordMessage = {
       embeds: [
         {
@@ -38,17 +48,17 @@ exports.handler = async (event, context) => {
           fields: [
             {
               name: '👤 Name',
-              value: name,
+              value: name.substring(0, 256), // Discord field value limit
               inline: true,
             },
             {
               name: '📧 Email',
-              value: email,
+              value: email.substring(0, 256), // Discord field value limit
               inline: true,
             },
             {
               name: '💬 Message',
-              value: message,
+              value: message.substring(0, 1024), // Discord field value limit
             },
           ],
           timestamp: new Date().toISOString(),
@@ -66,7 +76,9 @@ exports.handler = async (event, context) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Discord API returned ${response.status}`);
+      const errorText = await response.text();
+      console.error('Discord API error:', response.status, errorText);
+      throw new Error(`Discord API returned ${response.status}: ${errorText}`);
     }
 
     return {
