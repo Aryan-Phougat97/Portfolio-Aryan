@@ -18,10 +18,13 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Get Discord webhook URL from environment variable
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL || process.env.VITE_DISCORD_WEBHOOK_URL;
+    // Get Discord webhook URLs from environment variables
+    const webhookUrls = [
+      process.env.DISCORD_WEBHOOK_URL || process.env.VITE_DISCORD_WEBHOOK_URL,
+      process.env.DISCORD_WEBHOOK_URL_2 || process.env.VITE_DISCORD_WEBHOOK_URL_2,
+    ].filter(Boolean); // Remove undefined/null values
 
-    if (!webhookUrl) {
+    if (webhookUrls.length === 0) {
       console.error('Discord webhook URL not configured');
       return {
         statusCode: 500,
@@ -29,14 +32,16 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Validate webhook URL format
-    if (!webhookUrl.startsWith('https://discord.com/api/webhooks/') &&
-        !webhookUrl.startsWith('https://discordapp.com/api/webhooks/')) {
-      console.error('Invalid Discord webhook URL format');
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Server configuration error' }),
-      };
+    // Validate webhook URL formats
+    for (const webhookUrl of webhookUrls) {
+      if (!webhookUrl.startsWith('https://discord.com/api/webhooks/') &&
+          !webhookUrl.startsWith('https://discordapp.com/api/webhooks/')) {
+        console.error('Invalid Discord webhook URL format:', webhookUrl);
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ error: 'Server configuration error' }),
+        };
+      }
     }
 
     // Create Discord embed message with sanitized content
@@ -66,20 +71,27 @@ exports.handler = async (event, context) => {
       ],
     };
 
-    // Send to Discord webhook
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(discordMessage),
+    // Send to all Discord webhooks
+    const sendPromises = webhookUrls.map(async (webhookUrl) => {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(discordMessage),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Discord API error:', response.status, errorText);
+        throw new Error(`Discord API returned ${response.status}: ${errorText}`);
+      }
+
+      return response;
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Discord API error:', response.status, errorText);
-      throw new Error(`Discord API returned ${response.status}: ${errorText}`);
-    }
+    // Wait for all webhooks to be sent
+    await Promise.all(sendPromises);
 
     return {
       statusCode: 200,
