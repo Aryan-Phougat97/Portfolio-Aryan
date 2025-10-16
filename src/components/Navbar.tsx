@@ -1,9 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { Home, User, Code, Mail } from "lucide-react";
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { path: "/", label: "Home", icon: Home },
@@ -17,7 +18,12 @@ export const Navbar = () => {
     const hash = sectionId.includes("#") ? sectionId.split("#")[1] : sectionId;
 
     if (location.pathname !== "/") {
-      window.location.href = `/#${hash}`;
+      // Navigate to home page first, then scroll
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     } else {
       const element = document.getElementById(hash);
       element?.scrollIntoView({ behavior: "smooth" });
@@ -44,7 +50,7 @@ export const Navbar = () => {
                     if (item.path.includes("#")) {
                       scrollToSection(item.path);
                     } else {
-                      window.location.href = item.path;
+                      navigate(item.path);
                     }
                   }}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:scale-105 ${
