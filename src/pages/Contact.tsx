@@ -22,59 +22,31 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      const webhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL;
-
-      if (!webhookUrl) {
-        throw new Error("Discord webhook URL is not configured");
-      }
-
-      const discordMessage = {
-        embeds: [
-          {
-            title: "📬 New Contact Form Submission",
-            color: 5814783,
-            fields: [
-              {
-                name: "👤 Name",
-                value: formData.name,
-                inline: true,
-              },
-              {
-                name: "📧 Email",
-                value: formData.email,
-                inline: true,
-              },
-              {
-                name: "💬 Message",
-                value: formData.message,
-              },
-            ],
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      };
-
-      const response = await fetch(webhookUrl, {
+      // Use serverless function endpoint (works for both Netlify and Vercel)
+      const response = await fetch("/.netlify/functions/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(discordMessage),
+        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         toast({
           title: "Message Sent!",
           description: "Thank you for reaching out. I'll get back to you soon!",
         });
         setFormData({ name: "", email: "", message: "" });
       } else {
-        throw new Error("Failed to send message");
+        throw new Error(data.error || "Failed to send message");
       }
     } catch (error) {
+      console.error("Contact form error:", error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to send message. Please try again.",
         variant: "destructive",
       });
     } finally {
