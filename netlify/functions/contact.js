@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     }
 
     // Get Discord webhook URL from environment variable
-    const webhookUrl = process.env.VITE_DISCORD_WEBHOOK_URL;
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL || process.env.VITE_DISCORD_WEBHOOK_URL;
 
     if (!webhookUrl) {
       console.error('Discord webhook URL not configured');
