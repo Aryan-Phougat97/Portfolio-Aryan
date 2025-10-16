@@ -1,73 +1,96 @@
-# Welcome to your Lovable project
+# Portfolio Website
 
-## Project info
+A modern developer portfolio website built with React, TypeScript, Vite, and shadcn/ui.
 
-**URL**: https://lovable.dev/projects/5f6e2fef-5057-402e-b8ba-5b1650e4359d
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/5f6e2fef-5057-402e-b8ba-5b1650e4359d) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies Used
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Vite** - Fast build tool and dev server
+- **TypeScript** - Type-safe JavaScript
+- **React** - UI framework
+- **shadcn/ui** - Component library
+- **Tailwind CSS** - Utility-first CSS framework
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/5f6e2fef-5057-402e-b8ba-5b1650e4359d) and click on Share -> Publish.
+### Prerequisites
 
-## Can I connect a custom domain to my Lovable project?
+- Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Yes, you can!
+### Installation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+# Clone the repository
+git clone <YOUR_GIT_URL>
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# Navigate to the project directory
+cd <YOUR_PROJECT_NAME>
+
+# Install dependencies
+npm i
+
+# Start the development server with auto-reloading
+npm run dev
+```
+
+## Available Scripts
+
+```bash
+# Start development server (runs on http://[::]:8080)
+npm run dev
+
+# Build for production
+npm run build
+
+# Build for development (with development mode plugins)
+npm run build:dev
+
+# Preview production build
+npm preview
+
+# Run linting
+npm run lint
+```
+
+## Development
+
+The development server runs on port 8080 with auto-reloading enabled.
+
+### Editing the Code
+
+You can edit the code using:
+
+- Your preferred local IDE (VS Code, WebStorm, etc.)
+- GitHub's online editor
+- GitHub Codespaces
+
+After making changes, commit and push them to your repository.
+
+## Deployment
+
+This project can be deployed to any static hosting service such as:
+
+- Vercel
+- Netlify
+- GitHub Pages
+- Cloudflare Pages
+
+Simply build the project with `npm run build` and deploy the `dist` folder.
+
+## Project Structure
+
+```
+src/
+├── components/        # Application components
+│   ├── ui/           # shadcn/ui components
+│   └── [Feature]Section.tsx  # Page section components
+├── pages/            # Route pages
+├── hooks/            # Custom React hooks
+├── lib/              # Utility functions
+└── App.tsx           # Root component with routing
+```
+
+## License
+
+This project is private and proprietary.

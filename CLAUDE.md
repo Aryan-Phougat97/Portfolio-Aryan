@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a portfolio website built with React, TypeScript, Vite, shadcn/ui, and Tailwind CSS. It was created using Lovable (lovable.dev) and supports local development workflows.
+This is a portfolio website built with React, TypeScript, Vite, shadcn/ui, and Tailwind CSS. It supports local development workflows with hot module replacement.
 
 ## Development Commands
 
@@ -93,7 +93,7 @@ The TypeScript configuration is intentionally relaxed:
 - `noUnusedLocals: false`
 - `noUnusedParameters: false`
 
-This appears to be a Lovable project convention. Maintain this configuration unless explicitly changing the project's type safety approach.
+Maintain this configuration unless explicitly changing the project's type safety approach.
 
 ## Working with shadcn/ui Components
 
@@ -104,11 +104,6 @@ This appears to be a Lovable project convention. Maintain this configuration unl
 - Existing components can be customized, but this may make future updates harder
 
 ## Development Notes
-
-### Lovable Integration
-- This project is managed by Lovable (see [README.md](README.md))
-- The `lovable-tagger` plugin runs in development mode for component tracking
-- Changes pushed to this repo sync with the Lovable project
 
 ### Vite Configuration
 - Dev server runs on port 8080 with IPv6 support (`host: "::"`)
