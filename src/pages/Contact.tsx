@@ -22,14 +22,20 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      // Use serverless function endpoint (works for both Netlify and Vercel)
-      const response = await fetch("/.netlify/functions/contact", {
+      // Use Vercel serverless function endpoint
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
+
+      // Check if response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server is not configured properly. Please make sure the API is deployed on Vercel.");
+      }
 
       const data = await response.json();
 

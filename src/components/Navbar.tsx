@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { Home, User, Code, Mail } from "lucide-react";
 
@@ -34,9 +34,14 @@ export const Navbar = () => {
     if (location.pathname !== "/") {
       // Navigate to home page
       navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById("home");
+        element?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     } else {
-      // Scroll to top if already on home page
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Scroll to home section if already on home page
+      const element = document.getElementById("home");
+      element?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -44,9 +49,12 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold gradient-text">
+          <button
+            onClick={handleHomeClick}
+            className="text-2xl font-bold gradient-text cursor-pointer hover:opacity-80 transition-opacity"
+          >
             Aryan Phougat
-          </Link>
+          </button>
 
           <div className="flex items-center gap-6">
             {navItems.map((item) => {
