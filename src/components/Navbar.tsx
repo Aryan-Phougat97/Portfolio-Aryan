@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { Home, User, Code, Mail } from "lucide-react";
-import { motion } from "framer-motion";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -14,24 +13,23 @@ export const Navbar = () => {
   ];
 
   const scrollToSection = (sectionId: string) => {
+    // Extract the hash part (e.g., "#about" from "/#about")
+    const hash = sectionId.includes("#") ? sectionId.split("#")[1] : sectionId;
+
     if (location.pathname !== "/") {
-      window.location.href = `/${sectionId}`;
+      window.location.href = `/#${hash}`;
     } else {
-      const element = document.querySelector(sectionId);
+      const element = document.getElementById(hash);
       element?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 glass-effect"
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-2xl font-bold gradient-text">
-            Portfolio
+            Aryan Phougat
           </Link>
 
           <div className="flex items-center gap-6">
@@ -65,6 +63,6 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };

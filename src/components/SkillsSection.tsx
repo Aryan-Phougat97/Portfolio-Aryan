@@ -10,8 +10,9 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "Python", percentage: 95, category: "Backend", color: "hsl(var(--progress-python))" },
-  { name: "JavaScript", percentage: 70, category: "Backend", color: "hsl(var(--progress-js))" },
+  { name: "Python", percentage: 95, category: "Languages", color: "hsl(var(--progress-python))" },
+  { name: "JavaScript", percentage: 70, category: "Languages", color: "hsl(var(--progress-js))" },
+  { name: "TypeScript", percentage: 65, category: "Languages", color: "hsl(var(--primary))" },
   { name: "HTML", percentage: 90, category: "Frontend", color: "hsl(var(--progress-html))" },
   { name: "CSS", percentage: 80, category: "Frontend", color: "hsl(var(--progress-css))" },
   { name: "DevOps", percentage: 75, category: "Others", color: "hsl(var(--primary))" },
@@ -25,25 +26,25 @@ export const SkillsSection = () => {
 
   useEffect(() => {
     if (inView) {
-      const timeouts = skills.map((skill, index) => {
-        return setTimeout(() => {
-          let current = 0;
-          const interval = setInterval(() => {
-            current += 1;
-            if (current >= skill.percentage) {
-              current = skill.percentage;
-              clearInterval(interval);
-            }
-            setAnimatedValues((prev) => {
-              const newValues = [...prev];
-              newValues[index] = current;
-              return newValues;
-            });
-          }, 15);
-        }, index * 100);
-      });
+      // Optimized: animate all skills together with requestAnimationFrame for better performance
+      let animationFrame: number;
+      const duration = 1000; // 1 second total animation
+      const startTime = Date.now();
 
-      return () => timeouts.forEach((timeout) => clearTimeout(timeout));
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        setAnimatedValues(skills.map(skill => Math.round(skill.percentage * progress)));
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+
+      return () => cancelAnimationFrame(animationFrame);
     }
   }, [inView]);
 
@@ -69,7 +70,7 @@ export const SkillsSection = () => {
                 <div className="space-y-6">
                   {skills
                     .filter((skill) => skill.category === category)
-                    .map((skill, index) => {
+                    .map((skill) => {
                       const skillIndex = skills.indexOf(skill);
                       return (
                         <div key={skill.name}>

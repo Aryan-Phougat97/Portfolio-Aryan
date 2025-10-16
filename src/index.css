@@ -119,4 +119,33 @@ All colors MUST be HSL.
   .glass-effect {
     @apply backdrop-blur-sm bg-card/80 border border-border/50;
   }
+
+  /* Performance-optimized CSS animations for background effects */
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(50px, -30px) scale(1.1);
+    }
+  }
+
+  @keyframes float-slower {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-50px, 40px) scale(1.15);
+    }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 12s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-float-slower {
+    animation: float-slower 15s ease-in-out infinite;
+    will-change: transform;
+  }
 }
