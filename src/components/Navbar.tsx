@@ -42,18 +42,21 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/10">
-      <div className="container mx-auto px-4 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/[0.06]">
+      <div className="container mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
           <button
             onClick={handleHomeClick}
-            className="text-xl font-bold cursor-pointer hover:text-foreground transition-colors flex items-center gap-2"
+            className="text-lg font-light tracking-tight cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-2.5"
           >
-            AP
-            <span className="w-1 h-1 bg-accent rounded-full" />
+            X.
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
+            </span>
           </button>
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-10">
             {navItems.map((item) => {
               const isActive = item.path === location.pathname;
               const Icon = item.icon;
@@ -70,18 +73,18 @@ export const Navbar = () => {
                       navigate(item.path);
                     }
                   }}
-                  className={`group relative flex items-center gap-2 text-sm transition-all ${
+                  className={`group relative flex items-center gap-2 text-[13px] font-light tracking-wide transition-all duration-300 ${
                     isActive
-                      ? "text-foreground font-medium"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-white"
+                      : "text-white/40 hover:text-white/90"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5" />
                   <span className="hidden md:inline">{item.label}</span>
-                  {/* Minimal underline on active */}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 w-full h-px bg-accent" />
-                  )}
+                  {/* Minimal red underline on active/hover */}
+                  <span className={`absolute -bottom-1.5 left-0 h-[1px] bg-accent transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
                 </button>
               );
             })}

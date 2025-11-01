@@ -102,11 +102,23 @@ All colors MUST be HSL.
   }
 
   .minimal-card {
-    @apply bg-card border border-border/20 transition-all duration-300;
+    @apply bg-black border border-white/[0.08] transition-all duration-300;
   }
 
   .minimal-card:hover {
-    @apply border-accent/50;
+    @apply border-white/20 scale-[1.02];
+  }
+
+  /* Red pulse animation for nav logo */
+  @keyframes pulse-red {
+    0%, 100% {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
   }
 
   /* Smooth micro-interactions */
@@ -132,5 +144,23 @@ All colors MUST be HSL.
 
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  /* Typography hierarchy for stealth aesthetic */
+  .text-stealth-title {
+    @apply text-white/90 font-light tracking-tight;
+  }
+
+  .text-stealth-body {
+    @apply text-white/50 font-light;
+  }
+
+  .text-stealth-muted {
+    @apply text-white/30 font-light;
+  }
+
+  /* Luxury spacing rhythm */
+  .luxury-spacing {
+    @apply space-y-8;
   }
 }

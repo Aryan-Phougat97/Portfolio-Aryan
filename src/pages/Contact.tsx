@@ -4,8 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Send, User, MessageSquare } from "lucide-react";
+import { Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
@@ -61,95 +60,86 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
-      <div className="pt-24 px-4 pb-20">
-        <div className="container mx-auto max-w-2xl">
+      <div className="pt-32 px-6 pb-20">
+        <div className="container mx-auto max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
-              Get In <span className="gradient-text">Touch</span>
+            <h1 className="text-4xl md:text-5xl font-light tracking-tight text-center mb-3 text-white">
+              Get In Touch
             </h1>
-            <p className="text-center text-muted-foreground mb-12 text-lg">
-              Have a question or want to work together? Drop me a message!
+            <p className="text-center text-white/40 mb-16 text-sm font-light">
+              Have a question or want to work together? Drop me a message.
             </p>
 
-            <Card className="glass-effect">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  Contact Form
-                </CardTitle>
-                <CardDescription>
-                  Fill out the form below and I'll get back to you as soon as possible.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      <User className="h-4 w-4 text-primary" />
-                      Name
-                    </label>
-                    <Input
-                      required
-                      placeholder="Your name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="transition-all focus:scale-105"
-                    />
-                  </div>
+            <div className="bg-black border border-white/[0.08] p-10">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="space-y-3">
+                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                    Name
+                    <span className="text-accent text-[10px]">*</span>
+                  </label>
+                  <Input
+                    required
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 h-11 transition-all duration-300 focus:scale-[1.01]"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-primary" />
-                      Email
-                    </label>
-                    <Input
-                      required
-                      type="email"
-                      placeholder="your.email@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="transition-all focus:scale-105"
-                    />
-                  </div>
+                <div className="space-y-3">
+                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                    Email
+                    <span className="text-accent text-[10px]">*</span>
+                  </label>
+                  <Input
+                    required
+                    type="email"
+                    placeholder="your.email@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 h-11 transition-all duration-300 focus:scale-[1.01]"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium flex items-center gap-2">
-                      <MessageSquare className="h-4 w-4 text-primary" />
-                      Message
-                    </label>
-                    <Textarea
-                      required
-                      placeholder="Your message..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="min-h-[150px] transition-all focus:scale-105"
-                    />
-                  </div>
+                <div className="space-y-3">
+                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                    Message
+                    <span className="text-accent text-[10px]">*</span>
+                  </label>
+                  <Textarea
+                    required
+                    placeholder="Your message..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 min-h-[140px] transition-all duration-300 focus:scale-[1.01] resize-none"
+                  />
+                </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full gradient-bg hover:opacity-90 transition-all hover:scale-105 group"
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      "Sending..."
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                <Button
+                  type="submit"
+                  className="w-full bg-transparent border border-white/20 text-white hover:bg-white/5 transition-all duration-300 h-11 font-light tracking-wide group relative overflow-hidden"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="ml-2 h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                  {/* Red underline on hover */}
+                  <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-accent group-hover:w-full transition-all duration-500" />
+                </Button>
+              </form>
+            </div>
           </motion.div>
         </div>
       </div>

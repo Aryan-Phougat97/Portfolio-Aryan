@@ -48,7 +48,7 @@ export const ProjectsSection = () => {
           </h2>
           <p className="text-muted-foreground mb-16 text-lg">Selected projects that showcase my expertise</p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.a
                 key={project.name}
@@ -58,28 +58,28 @@ export const ProjectsSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="group relative bg-card border border-border/20 p-6 transition-all duration-300 hover:border-accent/50"
+                className="group relative bg-black border border-white/[0.08] p-8 transition-all duration-300 hover:scale-[1.02] hover:border-white/20"
               >
-                {/* Red accent dot on hover */}
-                <div className="absolute top-6 right-6 w-1.5 h-1.5 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Tiny red corner accent - only visible on hover */}
+                <div className="absolute top-3 right-3 w-1 h-1 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300" />
 
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-xl font-semibold group-hover:text-foreground transition-colors">
+                <div className="space-y-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="text-xl font-medium tracking-tight text-white/90 group-hover:text-white transition-colors">
                       {project.name}
                     </h3>
-                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                    <ExternalLink className="h-3.5 w-3.5 text-white/30 group-hover:text-accent transition-all duration-300 flex-shrink-0 mt-1" />
                   </div>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-white/50 text-[13px] leading-relaxed font-light">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 pt-3">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs px-2 py-1 border border-border/30 text-muted-foreground"
+                        className="text-[11px] px-2.5 py-1 border border-white/10 text-white/40 font-light tracking-wide uppercase"
                       >
                         {tag}
                       </span>
@@ -87,8 +87,8 @@ export const ProjectsSection = () => {
                   </div>
                 </div>
 
-                {/* Bottom border animation on hover */}
-                <div className="absolute bottom-0 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
+                {/* Minimal red underline on hover - ultra subtle */}
+                <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-accent group-hover:w-full transition-all duration-500 ease-out" />
               </motion.a>
             ))}
           </div>
