@@ -1,116 +1,98 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
-import { useState } from "react";
-import { MultiStepLoader } from "./MultiStepLoader";
 
 interface Project {
   name: string;
   description: string;
-  image: string;
+  tags: string[];
   link: string;
 }
 
 const projects: Project[] = [
   {
     name: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution with payment integration and real-time inventory management.",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+    description: "Full-stack e-commerce solution with payment integration and real-time inventory management.",
+    tags: ["React", "Node.js", "PostgreSQL"],
     link: "https://example.com/project1",
   },
   {
     name: "Task Management App",
     description: "Collaborative task management tool with real-time updates and team features.",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    tags: ["TypeScript", "React", "Firebase"],
     link: "https://example.com/project2",
   },
   {
     name: "Portfolio Generator",
-    description: "An AI-powered tool that generates beautiful portfolio websites from user data.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    description: "AI-powered tool that generates beautiful portfolio websites from user data.",
+    tags: ["Python", "AI/ML", "React"],
     link: "https://example.com/project3",
   },
 ];
 
 export const ProjectsSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [loadingProject, setLoadingProject] = useState<string | null>(null);
-
-  const handleProjectClick = (project: Project) => {
-    setLoadingProject(project.name);
-
-    setTimeout(() => {
-      window.open(project.link, "_blank");
-      setLoadingProject(null);
-    }, 3000);
-  };
-
-  const getLoadingSteps = (projectName: string) => [
-    { text: "Opening link..." },
-    { text: `Sending to project ${projectName}` },
-    { text: "Redirecting..." },
-  ];
 
   return (
     <section id="projects" className="min-h-screen flex items-center justify-center px-4 py-20">
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-6xl">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            Featured <span className="gradient-text">Projects</span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+            Featured Work
+            <span className="inline-block w-2 h-2 bg-accent rounded-full ml-3 mb-4" />
           </h2>
+          <p className="text-muted-foreground mb-16 text-lg">Selected projects that showcase my expertise</p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.a
                 key={project.name}
-                initial={{ opacity: 0, y: 50 }}
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: index * 0.2, duration: 0.5 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="group relative bg-card border border-border/20 p-6 transition-all duration-300 hover:border-accent/50"
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 glass-effect group">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.name}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 gradient-bg opacity-0 group-hover:opacity-20 transition-opacity" />
+                {/* Red accent dot on hover */}
+                <div className="absolute top-6 right-6 w-1.5 h-1.5 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-xl font-semibold group-hover:text-foreground transition-colors">
+                      {project.name}
+                    </h3>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
                   </div>
-                  <CardHeader>
-                    <CardTitle className="gradient-text">{project.name}</CardTitle>
-                    <CardDescription className="text-muted-foreground">
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button
-                      onClick={() => handleProjectClick(project)}
-                      className="w-full gradient-bg hover:opacity-90 transition-all group"
-                    >
-                      View Project
-                      <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-1 border border-border/30 text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom border animation on hover */}
+                <div className="absolute bottom-0 left-0 h-px w-0 bg-accent group-hover:w-full transition-all duration-300" />
+              </motion.a>
             ))}
           </div>
         </motion.div>
-
-        {loadingProject && (
-          <MultiStepLoader
-            loadingStates={getLoadingSteps(loadingProject)}
-            loading={true}
-            duration={1000}
-          />
-        )}
       </div>
     </section>
   );

@@ -1,95 +1,72 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import { Code2, Database, Layers, Terminal, Wrench, GitBranch } from "lucide-react";
 
 interface Skill {
   name: string;
-  percentage: number;
+  icon: any;
   category: string;
-  color: string;
 }
 
 const skills: Skill[] = [
-  { name: "Python", percentage: 95, category: "Languages", color: "hsl(var(--progress-python))" },
-  { name: "JavaScript", percentage: 70, category: "Languages", color: "hsl(var(--progress-js))" },
-  { name: "TypeScript", percentage: 65, category: "Languages", color: "hsl(var(--primary))" },
-  { name: "HTML", percentage: 90, category: "Frontend", color: "hsl(var(--progress-html))" },
-  { name: "CSS", percentage: 80, category: "Frontend", color: "hsl(var(--progress-css))" },
-  { name: "DevOps", percentage: 75, category: "Others", color: "hsl(var(--primary))" },
-  { name: "Git", percentage: 85, category: "Others", color: "hsl(var(--accent))" },
-  { name: "Web Development", percentage: 88, category: "Others", color: "hsl(var(--gradient-end))" },
+  { name: "Python", icon: Code2, category: "Languages" },
+  { name: "JavaScript", icon: Code2, category: "Languages" },
+  { name: "TypeScript", icon: Code2, category: "Languages" },
+  { name: "React", icon: Layers, category: "Frontend" },
+  { name: "Node.js", icon: Terminal, category: "Backend" },
+  { name: "PostgreSQL", icon: Database, category: "Backend" },
+  { name: "Git", icon: GitBranch, category: "Tools" },
+  { name: "DevOps", icon: Wrench, category: "Tools" },
 ];
 
 export const SkillsSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [animatedValues, setAnimatedValues] = useState<number[]>(skills.map(() => 0));
-
-  useEffect(() => {
-    if (inView) {
-      // Optimized: animate all skills together with requestAnimationFrame for better performance
-      let animationFrame: number;
-      const duration = 1000; // 1 second total animation
-      const startTime = Date.now();
-
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        setAnimatedValues(skills.map(skill => Math.round(skill.percentage * progress)));
-
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(animate);
-        }
-      };
-
-      animationFrame = requestAnimationFrame(animate);
-
-      return () => cancelAnimationFrame(animationFrame);
-    }
-  }, [inView]);
 
   const categories = Array.from(new Set(skills.map((s) => s.category)));
 
   return (
     <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-20">
-      <div className="container mx-auto">
+      <div className="container mx-auto max-w-6xl">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            My <span className="gradient-text">Skills</span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+            Expertise
+            <span className="inline-block w-2 h-2 bg-accent rounded-full ml-3 mb-4" />
           </h2>
+          <p className="text-muted-foreground mb-16 text-lg">Technologies and tools I work with</p>
 
-          <div className="max-w-4xl mx-auto space-y-8">
-            {categories.map((category) => (
-              <div key={category} className="glass-effect rounded-2xl p-6 md:p-8">
-                <h3 className="text-2xl font-semibold mb-6 gradient-text">{category}</h3>
-                <div className="space-y-6">
+          <div className="space-y-12">
+            {categories.map((category, categoryIndex) => (
+              <div key={category}>
+                <h3 className="text-sm uppercase tracking-widest text-muted-foreground mb-6 flex items-center gap-2">
+                  <span className="w-8 h-px bg-border" />
+                  {category}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {skills
                     .filter((skill) => skill.category === category)
-                    .map((skill) => {
-                      const skillIndex = skills.indexOf(skill);
+                    .map((skill, index) => {
+                      const Icon = skill.icon;
                       return (
-                        <div key={skill.name}>
-                          <div className="flex justify-between mb-2">
-                            <span className="font-medium">{skill.name}</span>
-                            <span className="font-semibold" style={{ color: skill.color }}>
-                              {animatedValues[skillIndex]}%
-                            </span>
+                        <motion.div
+                          key={skill.name}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={inView ? { opacity: 1, y: 0 } : {}}
+                          transition={{ delay: categoryIndex * 0.1 + index * 0.05, duration: 0.4 }}
+                          className="group relative border border-border/20 p-6 transition-all duration-300 hover:border-accent/50"
+                        >
+                          {/* Red accent line on hover */}
+                          <div className="absolute top-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
+
+                          <div className="flex flex-col items-center gap-3 text-center">
+                            <Icon className="h-8 w-8 stroke-1 text-foreground group-hover:text-accent transition-colors duration-300" />
+                            <span className="text-sm font-medium">{skill.name}</span>
                           </div>
-                          <div className="h-3 bg-[hsl(var(--progress-bg))] rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={inView ? { width: `${animatedValues[skillIndex]}%` } : {}}
-                              transition={{ duration: 1, delay: skillIndex * 0.1 }}
-                              className="h-full rounded-full transition-all"
-                              style={{ backgroundColor: skill.color }}
-                            />
-                          </div>
-                        </div>
+                        </motion.div>
                       );
                     })}
                 </div>

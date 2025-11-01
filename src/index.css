@@ -8,87 +8,67 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Pure black and white theme with minimal red accents */
     --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
+    --foreground: 0 0% 0%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 9% 46%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 355 78% 45%; /* Red accent #E50914 */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 355 78% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 355 78% 45%;
 
-    --radius: 0.75rem;
-
-    /* Custom gradient variables */
-    --gradient-start: 262 83% 58%;
-    --gradient-end: 213 94% 68%;
-    
-    /* Progress bar colors */
-    --progress-bg: 220 14% 96%;
-    --progress-python: 262 83% 58%;
-    --progress-js: 45 93% 47%;
-    --progress-html: 12 76% 61%;
-    --progress-css: 213 94% 68%;
+    --radius: 0rem; /* Flat, no rounded corners */
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 20% 98%;
+    /* Pure black background, white text, red accents */
+    --background: 0 0% 0%; /* Pure black #000000 */
+    --foreground: 0 0% 100%; /* Pure white #FFFFFF */
 
-    --card: 224 65% 8%;
-    --card-foreground: 210 20% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 263 70% 65%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 0 0% 100%; /* White primary */
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 0 0% 5%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 28% 17%;
-    --muted-foreground: 217 33% 64%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 263 70% 65%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 355 78% 45%; /* Red accent #E50914 */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 355 78% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 263 70% 65%;
-
-    /* Custom gradient variables */
-    --gradient-start: 263 70% 65%;
-    --gradient-end: 213 94% 68%;
-    
-    /* Progress bar colors */
-    --progress-bg: 215 28% 17%;
-    --progress-python: 263 70% 65%;
-    --progress-js: 45 93% 57%;
-    --progress-html: 12 76% 71%;
-    --progress-css: 213 94% 68%;
+    --border: 0 0% 15%; /* Subtle white border */
+    --input: 0 0% 10%;
+    --ring: 355 78% 45%;
   }
 }
 
@@ -99,53 +79,58 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
-  .gradient-text {
-    @apply bg-gradient-to-r from-[hsl(var(--gradient-start))] to-[hsl(var(--gradient-end))] bg-clip-text text-transparent;
+  /* Minimal flat design - no gradients */
+  .accent-dot {
+    @apply relative;
   }
 
-  .gradient-bg {
-    @apply bg-gradient-to-r from-[hsl(var(--gradient-start))] to-[hsl(var(--gradient-end))];
+  .accent-dot::before {
+    content: '';
+    @apply absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent rounded-full;
   }
 
-  .glass-effect {
-    @apply backdrop-blur-sm bg-card/80 border border-border/50;
+  .minimal-card {
+    @apply bg-card border border-border/20 transition-all duration-300;
   }
 
-  /* Performance-optimized CSS animations for background effects */
-  @keyframes float-slow {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
+  .minimal-card:hover {
+    @apply border-accent/50;
+  }
+
+  /* Smooth micro-interactions */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
-    50% {
-      transform: translate(50px, -30px) scale(1.1);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  @keyframes float-slower {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
+  @keyframes underlineExpand {
+    from {
+      width: 0;
     }
-    50% {
-      transform: translate(-50px, 40px) scale(1.15);
+    to {
+      width: 100%;
     }
   }
 
-  .animate-float-slow {
-    animation: float-slow 12s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .animate-float-slower {
-    animation: float-slower 15s ease-in-out infinite;
-    will-change: transform;
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
   }
 }
