@@ -47,12 +47,16 @@ export const Navbar = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={handleHomeClick}
-            className="text-lg font-light tracking-tight cursor-pointer text-white/90 hover:text-white transition-colors flex items-center gap-2.5"
+            className="group flex items-center gap-3 cursor-pointer transition-all duration-300"
+            aria-label="Home"
           >
-            X.
+            <img
+              src="/logoAP.png"
+              alt="AP Logo"
+              className="h-9 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            />
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
+              <span className="ap-pulse-dot relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
             </span>
           </button>
 
