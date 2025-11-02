@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Github, Linkedin, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const ContactSection = () => {
@@ -9,9 +9,9 @@ export const ContactSection = () => {
   const navigate = useNavigate();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Github, href: "https://github.com/Aryan-Phougat97", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/aryanphougat97?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", label: "LinkedIn" },
+    { icon: X, href: "https://x.com/Aryan97983048?t=5hpUib7fESBf8BW_-kF2KQ&s=33", label: "X" },
   ];
 
   return (
