@@ -60,7 +60,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <div className="pt-32 px-6 pb-20">
@@ -70,17 +70,17 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-light tracking-tight text-center mb-3 text-white">
+            <h1 className="text-4xl md:text-5xl font-light tracking-tight text-center mb-3 text-foreground">
               Get In Touch
             </h1>
-            <p className="text-center text-white/40 mb-16 text-sm font-light">
+            <p className="text-center text-muted-foreground mb-16 text-sm font-light">
               Have a question or want to work together? Drop me a message.
             </p>
 
-            <div className="bg-black border border-white/[0.08] p-10">
+            <div className="bg-card border border-border p-10">
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="space-y-3">
-                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                  <label className="text-[13px] font-light text-muted-foreground flex items-center gap-2">
                     Name
                     <span className="text-accent text-[10px]">*</span>
                   </label>
@@ -89,12 +89,12 @@ export default function Contact() {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 h-11 transition-all duration-300 focus:scale-[1.01]"
+                    className="bg-transparent border-border focus:border-foreground/30 text-foreground placeholder:text-muted-foreground h-11 transition-all duration-300 focus:scale-[1.01]"
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                  <label className="text-[13px] font-light text-muted-foreground flex items-center gap-2">
                     Email
                     <span className="text-accent text-[10px]">*</span>
                   </label>
@@ -104,12 +104,12 @@ export default function Contact() {
                     placeholder="your.email@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 h-11 transition-all duration-300 focus:scale-[1.01]"
+                    className="bg-transparent border-border focus:border-foreground/30 text-foreground placeholder:text-muted-foreground h-11 transition-all duration-300 focus:scale-[1.01]"
                   />
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[13px] font-light text-white/70 flex items-center gap-2">
+                  <label className="text-[13px] font-light text-muted-foreground flex items-center gap-2">
                     Message
                     <span className="text-accent text-[10px]">*</span>
                   </label>
@@ -118,13 +118,13 @@ export default function Contact() {
                     placeholder="Your message..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="bg-transparent border-white/10 focus:border-white/30 text-white placeholder:text-white/30 min-h-[140px] transition-all duration-300 focus:scale-[1.01] resize-none"
+                    className="bg-transparent border-border focus:border-foreground/30 text-foreground placeholder:text-muted-foreground min-h-[140px] transition-all duration-300 focus:scale-[1.01] resize-none"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-transparent border border-white/20 text-white hover:bg-white/5 transition-all duration-300 h-11 font-light tracking-wide group relative overflow-hidden"
+                  className="w-full bg-transparent border border-border text-foreground hover:bg-foreground/5 transition-all duration-300 h-11 font-light tracking-wide group relative overflow-hidden"
                   disabled={loading}
                 >
                   {loading ? (

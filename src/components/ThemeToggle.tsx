@@ -23,12 +23,12 @@ export const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="group relative transition-all hover:text-accent"
+      className="group relative transition-all hover:bg-accent/10"
     >
       {theme === "light" ? (
-        <Moon className="h-4 w-4" />
+        <Moon className="h-4 w-4 transition-colors" />
       ) : (
-        <Sun className="h-4 w-4" />
+        <Sun className="h-4 w-4 transition-colors" />
       )}
       <span className="absolute top-0 right-0 w-1 h-1 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
     </Button>

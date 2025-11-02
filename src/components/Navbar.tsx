@@ -42,7 +42,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/[0.06]">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border">
       <div className="container mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
           <button
@@ -76,8 +76,8 @@ export const Navbar = () => {
                   }}
                   className={`group relative flex items-center gap-2 text-[13px] font-light tracking-wide transition-all duration-300 ${
                     isActive
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/90"
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground/90"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
