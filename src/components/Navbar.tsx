@@ -55,9 +55,6 @@ export const Navbar = () => {
               alt="AP Logo"
               className="h-9 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
             />
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="ap-pulse-dot relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
-            </span>
           </button>
 
           <div className="flex items-center gap-10">
