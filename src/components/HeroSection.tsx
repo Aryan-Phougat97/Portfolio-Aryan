@@ -100,14 +100,29 @@ export const HeroSection = () => {
           }}
         />
 
-        {/* Mobile Portrait - behind text with low opacity */}
+        {/* Mobile Portrait - behind text with enhanced visibility */}
         <div
           className="md:hidden absolute inset-0 bg-no-repeat"
           style={{
             backgroundImage: 'url(/portrait.png)',
-            opacity: 0.18,
-            backgroundSize: 'auto 90%',
-            backgroundPosition: 'center 25%',
+            opacity: 0.35,
+            backgroundSize: 'auto 95%',
+            backgroundPosition: 'center 30%',
+            maskImage: 'radial-gradient(ellipse 100% 90% at 50% 40%, black 25%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 75%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 100% 90% at 50% 40%, black 25%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 75%, transparent 100%)',
+          }}
+        />
+
+        {/* Mobile Portrait - ambient glow for depth */}
+        <div
+          className="md:hidden absolute inset-0 bg-no-repeat -z-10"
+          style={{
+            backgroundImage: 'url(/portrait.png)',
+            backgroundSize: 'auto 95%',
+            backgroundPosition: 'center 30%',
+            filter: 'blur(40px) brightness(1.1)',
+            opacity: 0.15,
+            mixBlendMode: 'screen',
           }}
         />
       </motion.div>
