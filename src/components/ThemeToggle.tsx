@@ -23,14 +23,13 @@ export const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="group relative transition-all hover:bg-accent/10"
+      className="group relative transition-all hover:bg-foreground/5 active:bg-foreground/10"
     >
       {theme === "light" ? (
-        <Moon className="h-4 w-4 transition-colors" />
+        <Moon className="h-[18px] w-[18px] transition-all duration-200 group-hover:scale-110" />
       ) : (
-        <Sun className="h-4 w-4 transition-colors" />
+        <Sun className="h-[18px] w-[18px] transition-all duration-200 group-hover:scale-110" />
       )}
-      <span className="absolute top-0 right-0 w-1 h-1 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
     </Button>
   );
 };
