@@ -22,12 +22,7 @@ const projects: Project[] = [
     tags: ["TypeScript", "React", "Firebase"],
     link: "https://trelix.aryanphougat.dev",
   },
-  {
-    name: "Portfolio Generator",
-    description: "AI-powered tool that generates beautiful portfolio websites from user data.",
-    tags: ["Python", "AI/ML", "React"],
-    link: "https://example.com/project3",
-  },
+
 ];
 
 export const ProjectsSection = () => {
