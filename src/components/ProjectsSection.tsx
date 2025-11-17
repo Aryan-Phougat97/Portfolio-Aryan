@@ -17,10 +17,10 @@ const projects: Project[] = [
     link: "https://example.com/project1",
   },
   {
-    name: "Task Management App",
-    description: "Collaborative task management tool with real-time updates and team features.",
+    name: "Self Improvement App",
+    description: "Collaborative self improvement tool with real-time updates and team features.",
     tags: ["TypeScript", "React", "Firebase"],
-    link: "https://example.com/project2",
+    link: "https://trelix.aryanphougat.dev",
   },
   {
     name: "Portfolio Generator",
