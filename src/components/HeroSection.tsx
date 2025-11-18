@@ -16,123 +16,29 @@ export const HeroSection = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center px-4 pt-20 relative overflow-hidden">
-      {/* Film grain overlay for unified texture */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.015] mix-blend-overlay hero-grain" />
+      {/* Film grain overlay for unified texture - only in dark mode */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.015] mix-blend-overlay hero-grain dark:block hidden" />
 
-      {/* Cinematic vignette for depth */}
+      {/* Subtle gradient accent - light mode */}
+      <div className="absolute inset-0 pointer-events-none dark:hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/3 rounded-full blur-3xl" />
+      </div>
+
+      {/* Cinematic vignette for depth - only in dark mode */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none dark:block hidden"
         style={{
-          background: 'radial-gradient(ellipse at 70% 50%, transparent 30%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.8) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0.6) 100%)',
         }}
       />
 
-      {/* Portrait Image - Desktop: right side with gradient fade, Mobile: centered behind text */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.3 }}
-        className="absolute inset-0 pointer-events-none"
-      >
-        {/* Desktop Portrait - Large screens (1280px+) */}
-        <div
-          className="hidden xl:block absolute right-0 top-0 bottom-0 w-[50%] bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            backgroundSize: 'auto 115%',
-            backgroundPosition: 'right center',
-            maskImage: 'radial-gradient(ellipse 120% 100% at 85% 50%, black 30%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.4) 65%, transparent 85%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.5) 25%, black 45%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 120% 100% at 85% 50%, black 30%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.4) 65%, transparent 85%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 12%, rgba(0,0,0,0.5) 25%, black 45%)',
-            maskComposite: 'intersect',
-            WebkitMaskComposite: 'source-in',
-          }}
-        />
-
-        {/* Enhanced ambient rim-light glow - Apple product style */}
-        <div
-          className="hidden xl:block absolute right-0 top-0 bottom-0 w-[50%] bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            backgroundSize: 'auto 115%',
-            backgroundPosition: 'right center',
-            filter: 'blur(60px) brightness(1.2) saturate(0.9)',
-            opacity: 0.12,
-            mixBlendMode: 'screen',
-          }}
-        />
-
-        {/* OPTIONAL: Soft gradient overlay for luxury depth - UNCOMMENT TO ENABLE */}
-        {/* <div
-          className="hidden xl:block absolute right-0 top-0 bottom-0 w-[50%] pointer-events-none"
-          style={{
-            background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(201, 27, 31, 0.06) 50%, rgba(0, 0, 0, 0.3) 100%)',
-            maskImage: 'radial-gradient(ellipse 120% 100% at 85% 50%, black 30%, rgba(0,0,0,0.7) 50%, transparent 85%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 120% 100% at 85% 50%, black 30%, rgba(0,0,0,0.7) 50%, transparent 85%)',
-            mixBlendMode: 'multiply',
-            opacity: 0.5,
-          }}
-        /> */}
-
-        {/* Tablet Portrait - Medium screens (768px-1279px) */}
-        <div
-          className="hidden md:block xl:hidden absolute right-0 top-0 bottom-0 w-[52%] bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            backgroundSize: 'auto 110%',
-            backgroundPosition: 'right center',
-            maskImage: 'radial-gradient(ellipse 115% 100% at 82% 50%, black 32%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.35) 68%, transparent 88%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 10%, rgba(0,0,0,0.45) 22%, black 42%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 115% 100% at 82% 50%, black 32%, rgba(0,0,0,0.8) 48%, rgba(0,0,0,0.35) 68%, transparent 88%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 10%, rgba(0,0,0,0.45) 22%, black 42%)',
-            maskComposite: 'intersect',
-            WebkitMaskComposite: 'source-in',
-          }}
-        />
-
-        {/* Enhanced ambient rim-light glow - tablet */}
-        <div
-          className="hidden md:block xl:hidden absolute right-0 top-0 bottom-0 w-[52%] bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            backgroundSize: 'auto 110%',
-            backgroundPosition: 'right center',
-            filter: 'blur(55px) brightness(1.2) saturate(0.9)',
-            opacity: 0.10,
-            mixBlendMode: 'screen',
-          }}
-        />
-
-        {/* Mobile Portrait - behind text with enhanced visibility */}
-        <div
-          className="md:hidden absolute inset-0 bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            opacity: 0.35,
-            backgroundSize: 'auto 95%',
-            backgroundPosition: 'center 30%',
-            maskImage: 'radial-gradient(ellipse 100% 90% at 50% 40%, black 25%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 75%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 100% 90% at 50% 40%, black 25%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 75%, transparent 100%)',
-          }}
-        />
-
-        {/* Mobile Portrait - ambient glow for depth */}
-        <div
-          className="md:hidden absolute inset-0 bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(/portrait.png)',
-            backgroundSize: 'auto 95%',
-            backgroundPosition: 'center 30%',
-            filter: 'blur(40px) brightness(1.1)',
-            opacity: 0.15,
-            mixBlendMode: 'screen',
-          }}
-        />
-      </motion.div>
-
-      <div className="container mx-auto max-w-7xl relative z-10">
+      <div className="container mx-auto max-w-4xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-8 md:max-w-[55%] lg:max-w-[50%]"
+          className="space-y-8 text-center"
         >
           {/* Name with minimal red dot accent */}
           <motion.div
@@ -140,15 +46,15 @@ export const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-tight">
               Aryan Phougat
-              <span className="inline-block w-2 h-2 bg-accent rounded-full ml-2 mb-8" />
+              <span className="inline-block w-2 h-2 bg-accent rounded-full ml-2 mb-6 sm:mb-8 dark:opacity-100 opacity-70" />
             </h1>
           </motion.div>
 
           {/* Tagline */}
           <motion.p
-            className="text-xl md:text-2xl text-muted-foreground max-w-xl"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -158,7 +64,7 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 pt-8"
+            className="flex flex-col sm:flex-row gap-4 pt-8 justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -167,7 +73,7 @@ export const HeroSection = () => {
               size="lg"
               variant="outline"
               onClick={scrollToProjects}
-              className="group border-foreground text-foreground bg-background hover:bg-foreground hover:text-background transition-all duration-300"
+              className="group border-foreground/20 text-foreground bg-background hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 dark:border-foreground"
             >
               View Work
               <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
@@ -177,7 +83,7 @@ export const HeroSection = () => {
               size="lg"
               variant="outline"
               onClick={handleContactClick}
-              className="group border-foreground text-foreground bg-background hover:bg-accent/10 hover:border-accent hover:text-accent transition-all duration-300"
+              className="group border-foreground/20 text-foreground bg-background hover:bg-accent/10 hover:border-accent hover:text-accent transition-all duration-300 dark:border-foreground"
             >
               Contact
               <Mail className="ml-2 h-4 w-4" />
@@ -186,14 +92,14 @@ export const HeroSection = () => {
 
           {/* Minimal scroll indicator */}
           <motion.div
-            className="pt-20 flex justify-center"
+            className="pt-24 flex justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <span className="text-xs tracking-widest uppercase">Scroll</span>
-              <div className="w-px h-12 bg-gradient-to-b from-muted-foreground to-transparent" />
+            <div className="flex flex-col items-center gap-2 text-muted-foreground/60">
+              <span className="text-xs tracking-widest uppercase opacity-60">Scroll</span>
+              <div className="w-px h-12 bg-gradient-to-b from-muted-foreground/40 to-transparent" />
             </div>
           </motion.div>
         </motion.div>
