@@ -56,14 +56,29 @@ export const SkillsSection = () => {
                           key={skill.name}
                           initial={{ opacity: 0, y: 20 }}
                           animate={inView ? { opacity: 1, y: 0 } : {}}
-                          transition={{ delay: categoryIndex * 0.1 + index * 0.05, duration: 0.4 }}
-                          className="group relative border border-border/20 p-6 transition-all duration-300 hover:border-accent/50"
+                          transition={{
+                            delay: categoryIndex * 0.15 + index * 0.08,
+                            duration: 0.5,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                          whileHover={{ y: -4 }}
+                          className="group relative border border-border/20 bg-background/50 backdrop-blur-sm p-6 transition-all duration-300 hover:border-accent/50 hover:bg-background/80 overflow-hidden"
                         >
+                          {/* Glow effect on hover */}
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <div className="absolute inset-0 bg-accent/5 blur-xl" />
+                          </div>
+
                           {/* Red accent line on hover */}
                           <div className="absolute top-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
 
-                          <div className="flex flex-col items-center gap-3 text-center">
-                            <Icon className="h-8 w-8 stroke-1 text-foreground group-hover:text-accent transition-colors duration-300" />
+                          <div className="flex flex-col items-center gap-3 text-center relative z-10">
+                            <motion.div
+                              whileHover={{ scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                            >
+                              <Icon className="h-8 w-8 stroke-1 text-foreground group-hover:text-accent transition-colors duration-300" />
+                            </motion.div>
                             <span className="text-sm font-medium">{skill.name}</span>
                           </div>
                         </motion.div>
