@@ -84,6 +84,49 @@ All colors MUST be HSL.
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Disable smooth scroll for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Custom scrollbar - Light mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    transition: background 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent));
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) hsl(var(--background));
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
     letter-spacing: -0.02em;
@@ -188,4 +231,58 @@ All colors MUST be HSL.
     80% { transform: translate(3%, 25%); }
     90% { transform: translate(-10%, 10%); }
   }
+
+  /* Grok-style animated glow flare */
+  .glow-flare {
+    animation: flare-drift 20s ease-in-out infinite;
+  }
+
+  @keyframes flare-drift {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(-50px, 50px) scale(1.2);
+      opacity: 0.5;
+    }
+  }
+
+  /* Smoke/gradient motion effect */
+  .smoke-gradient {
+    background: radial-gradient(ellipse 150% 100% at 30% 60%, rgba(255,255,255,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 120% 80% at 70% 40%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    animation: smoke-motion 25s ease-in-out infinite;
+  }
+
+  @keyframes smoke-motion {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.3;
+    }
+    33% {
+      transform: translate(30px, -20px) scale(1.1);
+      opacity: 0.4;
+    }
+    66% {
+      transform: translate(-20px, 30px) scale(0.95);
+      opacity: 0.25;
+    }
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.05) 1px, rgba(255,255,255,0.05) 2px),
+      repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255,255,255,0.05) 1px, rgba(255,255,255,0.05) 2px);
+    animation: noise-drift 5s steps(15) infinite;
+  }
+
+  @keyframes noise-drift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-3%, 3%); }
+    50% { transform: translate(3%, -3%); }
+    75% { transform: translate(-3%, -3%); }
+  }
 }
+

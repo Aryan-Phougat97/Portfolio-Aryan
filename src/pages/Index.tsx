@@ -5,17 +5,25 @@ import { SkillsSection } from "@/components/SkillsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { FloatingParticles } from "@/components/FloatingParticles";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { CursorGlow } from "@/components/CursorGlow";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
-      <Footer />
+    <div className="min-h-screen relative">
+      <FloatingParticles />
+      <ScrollProgress />
+      <CursorGlow />
+      <div className="relative z-10">
+        <Navbar />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ContactSection />
+        <Footer />
+      </div>
     </div>
   );
 };
